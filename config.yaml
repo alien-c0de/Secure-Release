@@ -1,14 +1,14 @@
 Assessment_Project_Details:
-  name: AltoroJ-AltoroJ-3.2
-  version: '3.2'
-  technology: Java
+  name: dvpwa
+  version: 1.0.1
+  technology: Python
   description: Java Project
 dependency_files:
-  java:
-  - pom.xml
-  - build.gradle
-  - build.gradle.kts
-technology: Java
+  python:
+  - requirements.txt
+  - Pipfile
+  - pyproject.toml
+technology: Python
 target_dirs:
 - C:\Users\A181244\OneDrive - ATOS\Santosh\Personal\Training\Python\Secure-Release\Sample_code\dvpwa
 logging:

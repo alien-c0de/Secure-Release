@@ -154,6 +154,8 @@ def result_card(tool, issues):
         "Dependency Scan": "linear-gradient(90deg, #0ea5e9, #38bdf8)",  # Blue
         "Secret Scanner": "linear-gradient(90deg, #10b981, #34d399)",   # Green
         "Code Analyzer":  "linear-gradient(90deg, #f59e0b, #fbbf24)",   # Amber
+        "ZAP": "linear-gradient(90deg, #0ea5e9, #fbbf24)",  # Blue
+        "Fuzzer": "linear-gradient(90deg, #10b981, #34d399)",   # Green
     }
     header_bg = header_colors.get(tool, "linear-gradient(90deg, #64748b, #475569)")
 
@@ -255,42 +257,77 @@ def report_download_button():
 
     st.markdown('</div>', unsafe_allow_html=True)  # end .dl-scope
 
-# --------------------------
-# API Vulnerability Scanner Page
-# --------------------------
+def build_fuzzer_targets(fuzzer_cfg):
+    """Render fuzzer config section and return updated targets."""
+    targets = fuzzer_cfg.get("targets", [])
+    new_targets = []
+    st.markdown("Define fuzzing targets (endpoints + params).")
+
+    http_methods = ["GET", "POST", "PUT", "DELETE"]
+
+    for i, t in enumerate(targets):
+        st.markdown(f"**🎯 Target {i+1}**")
+        col1, col2 = st.columns([1, 3])
+
+        with col1:
+            method = st.selectbox(
+                f"Method {i+1}", http_methods,
+                index=http_methods.index(t.get("method", "GET")),
+                key=f"method_{i}"
+            )
+        with col2:
+            path = st.text_input(f"Path {i+1}", value=t.get("path", "/"), key=f"path_{i}")
+
+        params = st.text_input(
+            f"Params {i+1} (comma-separated)",
+            value=",".join(t.get("params", [])),
+            key=f"params_{i}"
+        )
+        body = st.text_area(
+            f"Body Template {i+1} (JSON)",
+            value=json.dumps(t.get("body_template", {})),
+            key=f"body_{i}"
+        )
+        try:
+            body_template = json.loads(body) if body.strip() else {}
+        except json.JSONDecodeError:
+            body_template = {}
+
+        new_targets.append({
+            "method": method,
+            "path": path,
+            "params": [p.strip() for p in params.split(",") if p.strip()],
+            "body_template": body_template
+        })
+
+    if st.checkbox("➕ Add a new target"):
+        new_targets.append({"method": "GET", "path": "/", "params": [], "body_template": {}})
+
+    return new_targets
+
+# --- Main Page ---
 def api_scanner_page(cfg):
     st.header("🌐 API Vulnerability Scanner")
 
-    # --- Custom CSS for buttons & cards ---
+    # --- CSS Styling (cleaned duplicates) ---
     st.markdown(
         """
         <style>
-       /* Smaller buttons */ 
-       .stButton>button { 
+        .stButton>button { 
             font-size: 14px !important; 
             padding: 0.4em 1em !important; 
             border-radius: 8px !important; 
         } 
-       /* Primary button style */ 
-       .stButton>button[kind="primary"] { 
+        .stButton>button[kind="primary"] { 
             background-color: #2e86de !important; 
             color: white !important; 
             border: none !important; 
         }
-        /* Secondary buttons */
         .stButton>button[kind="secondary"] {
             background-color: #636e72 !important;
             color: white !important;
             border: none !important;
         }
-       
-        /* Secondary buttons */
-        .stButton>button[kind="secondary"] {
-            background-color: #636e72 !important;
-            color: white !important;
-            border: none !important;
-        }
-        /* Result cards smaller */
         .stAlert {
             padding: 0.5rem 0.75rem !important;
             font-size: 14px !important;
@@ -301,111 +338,64 @@ def api_scanner_page(cfg):
     )
 
     api_cfg = cfg.get("API_Scanner", {})
+    auth_cfg = api_cfg.get("auth", {})
+    zap_cfg = api_cfg.get("zap", {})
+    fuzzer_cfg = api_cfg.get("fuzzer", {})
 
-    col1, col2 = st.columns(2)
+    # --- Form for Configuration ---
+    with st.form("api_config_form"):
+        col1, col2 = st.columns(2)
 
-    with col1:
-        # --- Base URL + OpenAPI ---
-        with st.expander("🌍 API Target Configuration", expanded=True):
-            # col1, col2 = st.columns([2, 2])
-            # with col1:
-            base_url = st.text_input("API URL", value=api_cfg.get("base_url", "https://httpbin.org"))
-            # with col2:
-            #     openapi_url = st.text_input("OpenAPI / Swagger Spec URL", value=api_cfg.get("openapi_url", ""))
+        with col1:
+            with st.expander("🌍 API Target Configuration", expanded=True):
+                base_url = st.text_input(
+                    "API URL", 
+                    value=api_cfg.get("base_url", "https://httpbin.org")
+                )
 
-    with col2:
-        # --- Authentication ---
-        with st.expander("🔑 Authentication", expanded=False):
-            auth_cfg = api_cfg.get("auth", {})
-            auth_type = st.selectbox("Auth Type", ["none", "bearer", "api_key", "basic"],
-                                    index=["none", "bearer", "api_key", "basic"].index(auth_cfg.get("type", "none")))
-            token, header, value, username, password = "", "", "", "", ""
+        with col2:
+            with st.expander("🔑 Authentication", expanded=False):
+                auth_types = ["none", "bearer", "api_key", "basic"]
+                auth_type = st.selectbox(
+                    "Auth Type", auth_types,
+                    index=auth_types.index(auth_cfg.get("type", "none"))
+                )
 
-            if auth_type == "bearer":
-                token = st.text_input("Bearer Token", value=auth_cfg.get("token", ""), type="password")
-            elif auth_type == "api_key":
-                col1, col2 = st.columns(2)
-                with col1:
-                    header = st.text_input("API Key Header", value=auth_cfg.get("header", "x-api-key"))
-                with col2:
-                    value = st.text_input("API Key Value", value=auth_cfg.get("value", ""), type="password")
-            elif auth_type == "basic":
-                col1, col2 = st.columns(2)
-                with col1:
-                    username = st.text_input("Username", value=auth_cfg.get("username", ""))
-                with col2:
-                    password = st.text_input("Password", value=auth_cfg.get("password", ""), type="password")
+                token = header = value = username = password = ""
+                if auth_type == "bearer":
+                    token = st.text_input("Bearer Token", value=auth_cfg.get("token", ""), type="password")
+                elif auth_type == "api_key":
+                    col1, col2 = st.columns(2)
+                    header = col1.text_input("API Key Header", value=auth_cfg.get("header", "x-api-key"))
+                    value = col2.text_input("API Key Value", value=auth_cfg.get("value", ""), type="password")
+                elif auth_type == "basic":
+                    col1, col2 = st.columns(2)
+                    username = col1.text_input("Username", value=auth_cfg.get("username", ""))
+                    password = col2.text_input("Password", value=auth_cfg.get("password", ""), type="password")
 
-    col3, col4 = st.columns(2)
-    with col3:
-    # --- ZAP Config ---
-        with st.expander("🕷️ OWASP ZAP Configuration", expanded=False):
-            zap_cfg = api_cfg.get("zap", {})
-            col1, col2 = st.columns([1, 2])
-            with col1:
+        col3, col4 = st.columns(2)
+        with col3:
+            with st.expander("🕷️ OWASP ZAP Configuration", expanded=False):
                 zap_enabled = st.checkbox("Enable ZAP", value=zap_cfg.get("enabled", False))
-            with col2:
                 zap_api_key = st.text_input("ZAP API Key", value=zap_cfg.get("api_key", ""), type="password")
-            zap_proxy = st.text_input("ZAP Proxy", value=zap_cfg.get("proxy", "http://127.0.0.1:8080"))
+                zap_proxy = st.text_input("ZAP Proxy", value=zap_cfg.get("proxy", "http://127.0.0.1:8080"))
 
-    with col4:
-        # --- Fuzzer Config ---
-        with st.expander("💥 Fuzzer Configuration", expanded=False):
-            fuzzer_cfg = api_cfg.get("fuzzer", {})
-            targets = fuzzer_cfg.get("targets", [])
+        with col4:
+            with st.expander("💥 Fuzzer Configuration", expanded=False):
+                new_targets = build_fuzzer_targets(fuzzer_cfg)
 
-            st.markdown("Define fuzzing targets (endpoints + params).")
-            new_targets = []
-            for i, t in enumerate(targets):
-                st.markdown(f"**🎯 Target {i+1}**")
-                col1, col2 = st.columns([1, 3])
-                with col1:
-                    method = st.selectbox(f"Method {i+1}", ["GET", "POST", "PUT", "DELETE"],
-                                        index=["GET", "POST", "PUT", "DELETE"].index(t.get("method", "GET")),
-                                        key=f"method_{i}")
-                with col2:
-                    path = st.text_input(f"Path {i+1}", value=t.get("path", "/"), key=f"path_{i}")
-                params = st.text_input(f"Params {i+1} (comma-separated)", value=",".join(t.get("params", [])), key=f"params_{i}")
-                body = st.text_area(f"Body Template {i+1} (JSON)", value=json.dumps(t.get("body_template", {})), key=f"body_{i}")
-                try:
-                    body_template = json.loads(body) if body.strip() else {}
-                except Exception:
-                    body_template = {}
-                new_targets.append({
-                    "method": method,
-                    "path": path,
-                    "params": [p.strip() for p in params.split(",") if p.strip()],
-                    "body_template": body_template
-                })
-
-            add_new = st.checkbox("➕ Add a new target")
-            if add_new:
-                new_targets.append({"method": "GET", "path": "/", "params": [], "body_template": {}})
-        
-    # --- Save Config Button ---
-    if st.button("💾 Save Configuration"):
-        cfg["API_Scanner"] = {
-            "base_url": base_url,
-            # "openapi_url": openapi_url,
-            "auth": {
-                "type": auth_type if auth_type != "none" else "",
-                "token": token,
-                "header": header,
-                "value": value,
-                "username": username,
-                "password": password
-            },
-            "zap": {
-                "enabled": zap_enabled,
-                "api_key": zap_api_key,
-                "proxy": zap_proxy
-            },
-            "fuzzer": {"targets": new_targets}
-        }
-        save_config(cfg, "config.yaml")
-        st.success("✅ Configuration saved successfully!")
-
-    # st.markdown("---")
+        # --- Save Config ---
+        if st.form_submit_button("💾 Save Configuration"):
+            cfg["API_Scanner"] = {
+                "base_url": base_url,
+                "auth": {"type": auth_type if auth_type != "none" else "",
+                         "token": token, "header": header, "value": value,
+                         "username": username, "password": password},
+                "zap": {"enabled": zap_enabled, "api_key": zap_api_key, "proxy": zap_proxy},
+                "fuzzer": {"targets": new_targets}
+            }
+            save_config(cfg, "config.yaml")
+            st.success("✅ Configuration saved successfully!")
 
     # --- Run Scan ---
     if st.button("🚀 Run API Scan"):
@@ -415,52 +405,55 @@ def api_scanner_page(cfg):
             with st.spinner("Running API vulnerability scans..."):
                 try:
                     start_time = perf_counter()
-                    print(Fore.YELLOW + Style.BRIGHT + "\n🚀 Starting API security scans... please wait...\n", flush=True)
+                    print(Fore.YELLOW + Style.BRIGHT + "\n🚀 Starting API security scans...\n", flush=True)
+
                     api_results = asyncio.run(scan_api(cfg))
                     st.session_state["api_results"] = api_results
 
                     paths = api_reporter.generate_api_reports(api_results, cfg)
-                    st.session_state["api_report_html"] = open(paths["html"], "rb").read()
-                    st.session_state["api_report_json"] = open(paths["json"], "rb").read()
+                    st.session_state["api_report_html"] = Path(paths["html"]).read_bytes()
+                    st.session_state["api_report_json"] = Path(paths["json"]).read_bytes()
 
-                    st.success("✅ API scan complete! Reports are ready for download below ⬇️")
-                    print(Fore.YELLOW + Style.BRIGHT + f"\n⏱️ API Scan Completed in {round(perf_counter() - start_time, 2)} Seconds.\n", flush=True)
+                    elapsed = round(perf_counter() - start_time, 2)
+                    st.success(f"✅ API scan complete in {elapsed} seconds! Reports ready ⬇️")
+                    print(Fore.YELLOW + Style.BRIGHT + f"\n⏱️ API Scan Completed in {elapsed} Seconds.\n", flush=True)
                 except Exception as e:
                     st.error(f"API scan failed: {e}")
 
     # --- Download Reports ---
     if "api_report_html" in st.session_state and "api_report_json" in st.session_state:
         col1, col2 = st.columns(2)
-        with col1:
-            st.download_button(
-                "📑 Download HTML Report",
-                data=st.session_state["api_report_html"],
-                file_name="api_security_report.html",
-                mime="text/html",
-                key="dl_api_html",
-            )
-        with col2:
-            st.download_button(
-                "📂 Download JSON Report",
-                data=st.session_state["api_report_json"],
-                file_name="api_security_report.json",
-                mime="application/json",
-                key="dl_api_json",
-            )
+        col1.download_button("📑 Download HTML Report", 
+                             data=st.session_state["api_report_html"], 
+                             file_name="api_security_report.html", mime="text/html")
+        col2.download_button("📂 Download JSON Report", 
+                             data=st.session_state["api_report_json"], 
+                             file_name="api_security_report.json", mime="application/json")
 
     # --- Show Results ---
-    if "api_results" in st.session_state and st.session_state["api_results"]:
-        results = st.session_state["api_results"]
-
+    results = st.session_state.get("api_results")
+    if results:
         if isinstance(results, dict):
-            for engine, issues in results.items():
-                st.subheader(f"🔍 {engine} Findings")
-                if not issues:
-                    st.success("✅ No issues found.")
-                else:
-                    result_card(engine, issues)
+            # Expected engines (adjust if needed)
+            zap_issues = results.get("ZAP", [])
+            fuzzer_issues = results.get("Fuzzer", [])
+            # other_issues = results.get("Other", [])
+
+            col1, col2 = st.columns(2)
+
+            with col1:
+                result_card("ZAP Findings", zap_issues)
+            with col2:
+                result_card("Fuzzer Findings", fuzzer_issues)
+            # with col3:
+            #     result_card("Other Findings", other_issues)
+
         elif isinstance(results, list):
-            result_card("API Scanner", results)
+            st.subheader("🔍 API Scanner Findings")
+            if not results:
+                st.success("✅ No issues found.")
+            else:
+                result_card("API Scanner", results)
         else:
             st.warning("⚠️ Unexpected result format from API scanner.")
     else:
@@ -573,8 +566,10 @@ def SAST_page(cfg, config_path):
         print(Fore.YELLOW + Style.BRIGHT + "\n🚀 Starting SAST security scans... please wait...\n", flush=True)
         with st.spinner("Running scans... please wait ⏳"):
             st.session_state.results = asyncio.run(run_scans(config_path))
-        st.success("✅ Scans completed!")
-        print(Fore.YELLOW + Style.BRIGHT + f"\n⏱️ SAST Scan Completed in {round(perf_counter() - start_time, 2)} Seconds.\n", flush=True)
+        # st.success("✅ Scans completed!")
+        elapsed = round(perf_counter() - start_time, 2)
+        st.success(f"✅ SAST scan complete in {elapsed} seconds! Reports ready ⬇️")
+        print(Fore.YELLOW + Style.BRIGHT + f"\n⏱️ SAST Scan Completed in {elapsed} Seconds.\n", flush=True)
         print(Style.RESET_ALL)
 
     # -------------------------
@@ -626,7 +621,7 @@ def main():
         """
         <style>
         .title-font {
-            font-family: 'Cascadia Mono','Liberation Mono','Courier New', Courier, monospace;
+            font-family: 'Viga', 'Cascadia Mono','Liberation Mono','Courier New', Courier, monospace;
             font-size: 3.5rem;
             font-weight: 900;
             text-align: center;
@@ -636,7 +631,7 @@ def main():
             letter-spacing: .1px;
         }
         .tagline {
-            font-family: 'Courier New', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Viga', 'Courier New', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-size: 1.1rem;
             font-weight: 300;
             text-align: center;
@@ -672,7 +667,7 @@ def main():
     # start_zap_daemon(ZAP_PATH, API_KEY, port=PORT)
 
     # Only 2 menus now
-    menu = ["SAST Scanner", "API Vulnerability Scanner"]
+    menu = ["SAST Scanner", "API Vulnerability Scanner", "Contract Scanner"]
     choice = st.sidebar.radio("📌 Menu", menu)
     
     if choice == "SAST Scanner":

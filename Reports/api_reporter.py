@@ -45,56 +45,162 @@ def generate_html(results: Dict[str, List[Dict[str, Any]]], cfg: Dict[str, Any])
 
     # minimal, focused stylesheet (kept lean)
     css = """
-            body{font-family:Arial,Helvetica,sans-serif;background:#111;color:#eee;margin:0;padding:20px}
-            .container{max-width:1100px;margin:auto;background:#1f2937;padding:20px;border-radius:10px}
-            .header {
-                background: #fde047;
-                color: #222;
-                padding: 14px;
-                border-radius: 8px;
-                text-align: center;
-            }
-            .header h1{margin:0;font-size:30px}
-            .header h2{margin:4px 0 0 0;font-size:20px;font-weight:normal;color:#333}
-            .header h4{margin:4px 0 0 0;font-size:14px;font-weight:normal;color:#333;text-align:right}
-            .timestamp{font-size:14px;text-align:right;margin:10px 0 16px 0}
-            .section{background:#0f172a;border:1px solid #334155;border-radius:8px;margin:14px 0;overflow:hidden}
-            .section-title{margin:0;padding:10px 14px;color:#fff;font-weight:800}
-            .zap{background:linear-gradient(90deg,#0ea5e9,#38bdf8)}
-            .sth{background:linear-gradient(90deg,#10b981,#34d399)}
-            .fuz{background:linear-gradient(90deg,#10b981,#34d399)}
-            .card{padding:14px}
-            .item{background:#111827;border:1px solid #374151;border-radius:8px;padding:10px;margin:10px 0}
-            .k{font-weight:700;color:#e7650f;min-width:120px;display:inline-block}
-            code{background:#111;padding:2px 6px;border-radius:4px}
-            .sev-badge{font-weight:700;padding:2px 6px;border-radius:6px}
-            .sev-critical{background:#fecaca;color:#7f1d1d}
-            .sev-high{background:#fee2e2;color:#991b1b}
-            .sev-medium{background:#fef3c7;color:#92400e}
-            .sev-low{background:#d1fae5;color:#065f46}
-            .sev-info{background:#e0e7ff;color:#3730a3}
-            .sev-unknown{background:#e5e7eb;color:#374151}
-            footer{margin-top:20px;text-align:center;background:#fde047;color:#222;padding:10px;border-radius:6px}
-            """
+    body {
+        font-family: 'Inter', Arial, sans-serif;
+        background: #eef2ff; /* soft pastel background */
+        color: #1e293b;
+        margin: 0;
+        padding: 30px;
+    }
+    .container {
+        max-width: 1200px;
+        margin: auto;
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 25px 30px;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+    }
+
+    /* --- HEADER --- */
+    .header {
+        background: linear-gradient(90deg, #2563eb, #3b82f6);
+        color: white;
+        border-radius: 15px;
+        padding: 10px 10px;
+        text-align: center;
+        vertical-align: middle;
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+    }
+    .header h1 {
+        font-size: 35px;
+        margin: 0;
+        font-weight: 800;
+    }
+    .header h1 span.emoji {
+        font-size: 40px;
+    }
+
+    /* --- SUBHEADER --- */
+    .subheader {
+        background: #c9d6f7;
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        padding: 15px 15px;
+        margin-top: 5px;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .subheader h2 {
+        color: #1e3a8a;
+        margin: 0 0 8px;
+        font-size: 22px;
+        font-weight: 700;
+    }
+    .subheader h4 {
+        color: #475569;
+        margin: 4px 0 0;
+        font-size: 15px;
+    }
+
+    .timestamp {
+        font-size: 14px;
+        text-align: right;
+        color: #64748b;
+        margin-top: 10px;
+    }
+
+    /* --- SECTION STYLING --- */
+    .section {
+        margin-top: 28px;
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
+        background: #ffffff;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    }
+    .section-title {
+        padding: 12px 18px;
+        font-weight: 700;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: white;
+    }
+    .zap { background: linear-gradient(90deg, #06b6d4, #0ea5e9); }
+    .sth { background: linear-gradient(90deg,#10b981,#34d399); }
+    .fuz { background: linear-gradient(90deg, #8b5cf6, #a78bfa); }
+
+    .card { padding: 18px; }
+    .item {
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 12px 14px;
+        margin-bottom: 10px;
+        background: #f9fafb;
+        transition: box-shadow 0.2s ease;
+    }
+    .item:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+
+    .k {
+        display: inline-block;
+        width: 160px;
+        color: #580202;
+        font-weight: 600;
+    }
+
+    .sev-badge, .sev-critical, .sev-high, .sev-warning, .sev-medium, .sev-low, .sev-info, .sev-unknown {
+        padding: 2px 8px;
+        border-radius: 6px;
+        font-weight: 700;
+        font-size: 13px;
+    }
+    
+    
+    .sev-critical { background: #dc2626; color: #ffffff; }   /* Deep Red */
+    .sev-high     { background: #f87171; color: #1e293b; }   /* Light Red */
+    .sev-warning  { background: #facc15; color: #78350f; }   /* Amber/Yellow Warning */
+    .sev-medium   { background: #fde68a; color: #1e293b; }   /* Soft Yellow */
+    .sev-low      { background: #bbf7d0; color: #064e3b; }   /* Green */
+    .sev-info     { background: #bfdbfe; color: #1e3a8a; }   /* Blue Info */
+    .sev-unknown  { background: #e5e7eb; color: #374151; }   /* ⚪ Unknown - Neutral Gray */
+
+    footer {
+        text-align: center;
+        background: #2563eb;
+        color: white;
+        font-weight: 600;
+        border-radius: 8px;
+        margin-top: 35px;
+        padding: 10px;
+        box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+    }
+    """
 
     html = [f"""<!DOCTYPE html>
-            <html lang="en"><head>
-                <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-                <title>{title} API Report</title>
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-                <style>{css}</style>
-            </head>
-            <body>
-            <div class="container">
-                <div class="header">
-                    <h1><span style="font-size: 1.5em;">🕵️</span> {title}</h1>
-                    <h2>🛡️ {report_type} - Total Findings ({total})</h2>
-                    <h4>API Link: {api_link}</h4>
-                </div>
-                <div class="timestamp">
-                    <div>🕒 Report Generated: {timestamp}</div>
-                </div>
-                """]
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>{title} - API Report</title>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+        <style>{css}</style>
+    </head>
+    <body>
+    <div class="container">
+        <div class="header">
+            <h1><span class="emoji">🕵️</span> {title}</h1>
+        </div>
+
+        <div class="subheader">
+            <h2>🛡️ {report_type} - Total Findings ({total})</h2>
+            <h4>API Link: {api_link}</h4>
+        </div>
+
+        <div class="timestamp">
+            🕒 Report Generated: {timestamp}
+        </div>
+    """]
 
     def render_section(section_key: str, section_results: List[Dict[str, Any]], label: str, banner_class: str):
         html.append(f'<div class="section">')

@@ -19,8 +19,3 @@ python-owasp-zap-v2.4  # For OWASP ZAP API interaction
 requests    # For making HTTP requests
 aiohttp     # For asynchronous HTTP requests
 detect-secrets # for secret scanning
-
-
- & 'C:\Program Files\ZAP\Zed Attack Proxy\zap.bat' -daemon -host 127.0.0.1 -port 8081 -config api.key=jsgisco11qs3cusiu1b3m7dilj 
-
- .\zap.bat -daemon -host 127.0.0.1 -port 8081 -config api.key=jsgisco11qs3cusiu1b3m7dilj
