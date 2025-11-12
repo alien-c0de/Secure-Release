@@ -2,7 +2,7 @@ Assessment_Project_Details:
   name: dvpwa
   version: 1.0.1
   technology: Python
-  description: Java Project
+  description: 'Vulnerable Python Project '
 dependency_files:
   python:
   - requirements.txt
@@ -60,7 +60,7 @@ tool_info:
   author: Alien C00de
   year: '2025'
   email: alien.c00de@gmail.com
-  github: https://github.com/Alien-C00de
+  github: https://github.com/Alien-C0de
   timestamp: '2024-04-24 00:00:00'
   owner_title: 'Developed by:'
 notify:

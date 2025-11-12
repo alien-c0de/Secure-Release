@@ -15,24 +15,6 @@ def is_tool_available(tool_name):
     except ImportError:
         return False
 
-
-# ------------------------------
-# 🧠 Helper: Run shell command async
-# ------------------------------
-# async def run_command(command):
-#     """Run a shell command asynchronously and return its stdout."""
-#     process = await asyncio.create_subprocess_shell(
-#         command,
-#         stdout=asyncio.subprocess.PIPE,
-#         stderr=asyncio.subprocess.PIPE,
-#     )
-#     stdout, stderr = await process.communicate()
-
-#     if process.returncode != 0 and not stdout:
-#         print(Fore.RED + f"[!] Error running {command}: {stderr.decode().strip()}")
-#     return stdout.decode().strip()
-
-
 # ------------------------------
 # 🐍 Bandit (Python SAST)
 # ------------------------------
@@ -63,7 +45,7 @@ async def run_bandit(directory):
             await asyncio.sleep(0.2)
     else:
         print(Fore.RED + f"[!] Failed to read Bandit output from {tmp_path}")
-        os.remove(tmp_path)
+        os.remove(tmp_path) 
         return []
 
     # Parse results
@@ -97,19 +79,16 @@ async def run_command(cmd, cwd=None, timeout=600):
 # 🌐 Semgrep (Multi-language SAST)
 # ------------------------------
 async def run_semgrep(directory):
-    """Run Semgrep on multi-language source safely (Windows-compatible)."""
-    # print(Fore.CYAN + f"[>] Running Semgrep OWASP scan on: {directory}")
-
     # ✅ Step 1: Create a temp file but close it before writing
     tmp_fd, tmp_path = tempfile.mkstemp(suffix=".json")
     os.close(tmp_fd)
 
-    # ✅ Step 2: Run semgrep with --output instead of shell redirection
-    # (Avoids file lock + quoting issues on Windows)
     cmd = (
-        f'semgrep --quiet --json '
-        f'--config p/owasp-top-ten --config p/python --config p/javascript '
-        f'--config p/security-audit "{directory}" '
+        f'semgrep scan --quiet --json '
+        f'--config p/owasp-top-ten '
+        f'--config p/security-audit '
+        f'--config p/default '
+        f'"{directory}" '
         f'--output "{tmp_path}"'
     )
 
@@ -144,12 +123,11 @@ async def run_semgrep(directory):
     os.remove(tmp_path)
     return findings
 
-
 # ------------------------------
 # 🔍 Combined Secure Scan
 # ------------------------------
 async def scan(config):
-    print(Fore.LIGHTGREEN_EX + "\n[+] 🧑‍💻 Running Secure Code Analyzer (Bandit + Semgrep)...", flush=True)
+    # print(Fore.LIGHTGREEN_EX + "\n[+] 🧑‍💻 Running Secure Code Analyzer (Bandit + Semgrep)...", flush=True)
 
     results = []
     target_dirs = config.get("target_dirs", ["."])
@@ -168,14 +146,8 @@ async def scan(config):
         results.extend(r)
 
     # Display summary
-    # print(
-    #     Fore.LIGHTGREEN_EX + Style.BRIGHT +
-    #     f"[+] 📢 Code Analyzer completed — total findings: {len(results)}" +
-    #     Fore.RESET
-    # )
     print(Fore.LIGHTGREEN_EX + Style.BRIGHT  + f"[+] 📢 Code Analyzer found" + Fore.WHITE + Style.BRIGHT, len(results), Fore.LIGHTGREEN_EX + Style.BRIGHT + f"issues.", Fore.RESET)
     return results
-
 
 # ------------------------------
 # 🧪 Example test run

@@ -10,7 +10,7 @@ from Core.logger import setup_logger
 logger = setup_logger("dep-checker", cfg)
 
 async def scan(config):
-    print(Fore.CYAN + f"\n[+] 📦 Running Dependency Scan...", flush=True)
+    # print(Fore.CYAN + f"\n[+] 📦 Running Dependency Scan...", flush=True)
     results = []
 
     # Check which languages are defined in the config
@@ -129,7 +129,6 @@ async def run_subprocess_py(command, cwd=None, timeout=60):
     except Exception as e:
         logger.error(f"Error running subprocess: {e}")
         raise
-
 
 # Node.js: npm audit
 async def scan_node(config, node_files):

@@ -10,6 +10,8 @@ import json
 import subprocess
 import threading
 import time
+import os
+import pyfiglet
 from time import perf_counter
 from colorama import Fore, Style
 
@@ -64,39 +66,53 @@ async def run_scans(config_path="config.yaml"):
     """Run all scans asynchronously and return results + generate reports."""
     cfg = load_config(config_path)
     results = {}
+    
+    if os.name == 'nt':
+        os.system('cls')
+    else:
+        os.system('clear')
+
+    # Fancy header
+    figlet_name = cfg.get("tool_info", {}).get("tool_name", "Tool Name")
+    terminal_header = pyfiglet.figlet_format(figlet_name, font="doom")
+    print(Fore.YELLOW + Style.BRIGHT + terminal_header + Fore.RESET + Style.RESET_ALL)
+    print(Fore.GREEN + Style.BRIGHT + "🚀 Starting SAST security scans... please wait...\n", flush=True)
 
     try:
+        # 🧩 Choose the correct code analyzer based on technology
         if cfg["technology"].upper() == "PYTHON":
-            code_results = await code_analyzer_py.scan(cfg)
-            if isinstance(code_results, dict) and "results" in code_results:
-                code_results = code_results["results"]
-            results["Code Analyzer"] = code_results or []
+            code_analyzer_task = code_analyzer_py.scan(cfg)
         elif cfg["technology"].upper() == "JAVA":
-            code_results = await code_analyzer.scan(cfg)
-            if isinstance(code_results, dict) and "results" in code_results:
-                code_results = code_results["results"]
-            results["Code Analyzer"] = code_results or []
+            code_analyzer_task = code_analyzer.scan(cfg)
         else:
-            pass
+            code_analyzer_task = asyncio.sleep(0, result=[])  # dummy empty task for unsupported tech
+
+        # 🚀 Run all independent scanners concurrently
+        dep_task = dependency_checker.scan(cfg)
+        secret_task = secret_scanner.scan(cfg)
+
+        scan_results = await asyncio.gather(
+            dep_task,
+            secret_task,
+            code_analyzer_task,
+            return_exceptions=True
+        )
+
+        # 🎯 Map results safely (handle exceptions gracefully)
+        results["Dependency Scan"] = scan_results[0] if not isinstance(scan_results[0], Exception) else [{"error": str(scan_results[0])}]
+        results["Secret Scanner"]   = scan_results[1] if not isinstance(scan_results[1], Exception) else [{"error": str(scan_results[1])}]
+        results["Code Analyzer"]    = scan_results[2] if not isinstance(scan_results[2], Exception) else [{"error": str(scan_results[2])}]
+
+        # 🧹 Normalize analyzer results
+        code_results = results["Code Analyzer"]
+        if isinstance(code_results, dict) and "results" in code_results:
+            results["Code Analyzer"] = code_results["results"]
+        elif not isinstance(code_results, list):
+            results["Code Analyzer"] = [code_results]
 
     except Exception as e:
+        print(Fore.RED + f"[!] Error running concurrent scans: {e}" + Style.RESET_ALL)
         results["Code Analyzer"] = [{"error": str(e)}]
-
-    try:
-        dep_results = await dependency_checker.scan(cfg)
-        if isinstance(dep_results, dict) and "results" in dep_results:
-            dep_results = dep_results["results"]
-        results["Dependency Scan"] = dep_results or []
-    except Exception as e:
-        results["Dependency Scan"] = [{"error": str(e)}]
-
-    try:
-        secret_results = await secret_scanner.scan(cfg)
-        if isinstance(secret_results, dict) and "results" in secret_results:
-            secret_results = secret_results["results"]
-        results["Secret Scanner"] = secret_results or []
-    except Exception as e:
-        results["Secret Scanner"] = [{"error": str(e)}]
 
     
     # ✅ Generate HTML & JSON reports
@@ -106,6 +122,19 @@ async def run_scans(config_path="config.yaml"):
     except Exception as e:
         st.error(f"❌ Failed to generate reports: {e}")
 
+
+    # Pass cfg everywhere (no globals)
+    footer_owner = cfg.get("tool_info", {}).get("owner_title", "Footer Owner")
+    author = cfg.get("tool_info", {}).get("author", "Author")
+    year = cfg.get("tool_info", {}).get("year", "2025")
+    email = cfg.get("tool_info", {}).get("email", "email@example.com")
+    github = cfg.get("tool_info", {}).get("github", "https://github.com/your-repo")
+    version = cfg.get("tool_info", {}).get("version", "1.0.0")
+
+    print(Fore.YELLOW + f"\n📢 {footer_owner} 👽 {author} Ver: {version} © {year}", flush=True)
+    print(Fore.YELLOW + f"📥 {email} ", flush=True)
+    print(Fore.YELLOW + f"🚀 {github}", flush=True)
+    print(Style.RESET_ALL)
     return results
 
 # --------------------------
@@ -231,29 +260,34 @@ def report_download_button():
 
     st.markdown('<div class="dl-scope">', unsafe_allow_html=True)
 
-    if html_path.exists():
-        with open(html_path, "rb") as f:
-            html_data = f.read()
-        st.download_button(
-            label="📑 Download Security Report (HTML)",
-            data=html_data,
-            file_name=html_path.name,
-            mime="text/html",
-            key="download_report_html",
-        )
-    else:
-        st.info("ℹ️ No HTML report found yet.")
+    col1, col2 = st.columns(2)
+    with col1:
+        if html_path.exists():
+            with open(html_path, "rb") as f:
+                html_data = f.read()
+            st.download_button(
+                label="📑 Download Security Report (HTML)",
+                data=html_data,
+                file_name=html_path.name,
+                mime="text/html",
+                key="download_report_html",
+            )
+        else:
+            st.info("ℹ️ No HTML report found yet.")
 
-    if json_path.exists():
-        with open(json_path, "rb") as f:
-            json_data = f.read()
-        st.download_button(
-            label="📂 Download Security Report (JSON)",
-            data=json_data,
-            file_name=json_path.name,
-            mime="application/json",
-            key="download_report_json",
-        )
+    with col2:
+        if json_path.exists():
+            with open(json_path, "rb") as f:
+                json_data = f.read()
+            st.download_button(
+                label="📂 Download Security Report (JSON)",
+                data=json_data,
+                file_name=json_path.name,
+                mime="application/json",
+                key="download_report_json",
+            )
+        else:
+            st.info("ℹ️ No HTML report found yet.")
 
     st.markdown('</div>', unsafe_allow_html=True)  # end .dl-scope
 
@@ -505,31 +539,53 @@ def SAST_page(cfg, config_path):
         """,
         unsafe_allow_html=True
     )
-
     # -------------------------
-    # Configuration Section
+    # Configuration Section (Rearranged & Unified)
     # -------------------------
     with st.expander("⚙️ Configuration", expanded=False):
+        # --- Project Details (Second Section) ---
         st.subheader("📄 Assessment Project Details")
 
         project_cfg = cfg.get("Assessment_Project_Details", {})
-        name = st.text_input("Project Name", value=project_cfg.get("name", ""))
-        version = st.text_input("Project Version", value=project_cfg.get("version", ""))
 
-        technology = st.selectbox(
-            "Project Technology",
-            list(TECH_DEPENDENCIES.keys()),
-            index=list(TECH_DEPENDENCIES.keys()).index(
-                project_cfg.get("technology", "Python")
-            ) if project_cfg.get("technology") in TECH_DEPENDENCIES else 0
+        # --- Application Folder Path (top line) ---
+        folder_path = st.text_input(
+            "Application Folder Path:",
+            value=cfg.get("target_dirs", ["./"])[0],
+            help="Enter or paste the path to your application source folder"
         )
 
-        st.write("📌 Suggested dependency files for", technology, ":")
-        st.json(TECH_DEPENDENCIES[technology])
+        # Row 1: Project Name + Version
+        col1, col2 = st.columns([2, 2])
+        with col1:
+            name = st.text_input("Application Name", value=project_cfg.get("name", ""))
+        with col2:
+            version = st.text_input("Version", value=project_cfg.get("version", ""))
 
-        description = st.text_area("Project Description", value=project_cfg.get("description", ""))
+        # Row 2: Technology + Suggested Dependency Files
+        col3, col4 = st.columns([2, 2])
+        with col3:
+            technology = st.selectbox(
+                "Application Technology",
+                list(TECH_DEPENDENCIES.keys()),
+                index=list(TECH_DEPENDENCIES.keys()).index(
+                    project_cfg.get("technology", "Python")
+                ) if project_cfg.get("technology") in TECH_DEPENDENCIES else 0
+            )
+        with col4:
+            # Description Field
+            description = st.text_area(
+                "Application Description",
+                value=project_cfg.get("description", ""),
+                height=80,
+                placeholder="Briefly describe your project..."
+            )
+        
+        st.markdown("📌 **Suggested Dependency Files:**")
+        st.json(TECH_DEPENDENCIES.get(technology, []))
 
-        if st.button("💾 Save Project Details", key="save_project"):
+        # with save_col:
+        if st.button("💾 Save Configuration", key="save_all_config"):
             cfg["Assessment_Project_Details"] = {
                 "name": name,
                 "version": version,
@@ -538,22 +594,8 @@ def SAST_page(cfg, config_path):
             }
             cfg["technology"] = technology
             cfg["dependency_files"] = {technology.lower(): TECH_DEPENDENCIES[technology]}
-            save_config(cfg, config_path)
-
-        st.markdown("---")
-
-        st.subheader("📂 Target Application Directory")
-        folder_path = st.text_input(
-            "Select application folder path:",
-            value=cfg.get("target_dirs", ["./"])[0],
-            help="Enter or paste the path to the application source folder"
-        )
-
-        if st.button("💾 Save Target Directory", key="save_target"):
             cfg["target_dirs"] = [folder_path]
             save_config(cfg, config_path)
-
-    # st.markdown("---")
 
     # -------------------------
     # Run Security Scans
@@ -576,6 +618,9 @@ def SAST_page(cfg, config_path):
     # Show Scan Results
     # -------------------------
     if st.session_state.results:
+        st.subheader("📑 Consolidated Reports")
+        report_download_button()
+
         col1, col2, col3 = st.columns(3)
 
         with col1:
@@ -584,9 +629,6 @@ def SAST_page(cfg, config_path):
             result_card("Secret Scanner", st.session_state.results["Secret Scanner"])
         with col3:
             result_card("Code Analyzer", st.session_state.results["Code Analyzer"])
-
-        st.subheader("📑 Consolidated Reports")
-        report_download_button()
 
 def start_zap_daemon(zap_path: str, api_key: str, port: int = 8081, startup_delay: int = 15):
     """
@@ -617,39 +659,64 @@ def main():
     st.set_page_config(page_title="Secure Release Dashboard", layout="wide")
 
     # Global cosmetic styles (title font + layout tweaks)
-    st.markdown(
-        """
+    st.markdown("""
         <style>
-        .title-font {
-            font-family: 'Viga', 'Cascadia Mono','Liberation Mono','Courier New', Courier, monospace;
-            font-size: 3.5rem;
-            font-weight: 900;
-            text-align: center;
-            # margin-bottom: 0.5rem;
-            background: -webkit-linear-gradient(90deg, #9333ea, #ec4899);
-            -webkit-background-clip: text;
-            letter-spacing: .1px;
-        }
-        .tagline {
-            font-family: 'Viga', 'Courier New', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-size: 1.1rem;
-            font-weight: 300;
-            text-align: center;
-            color: #4b5563;
-            # margin-bottom: 1.8rem;
-        }
-        hr.divider {
-            border: none;
-            border-top: 1px solid #e5e7eb;
-            margin: 0.5rem auto 0.25rem auto;
-            width: 80%;
-        }
-        </style>
-        """,
+            .title-font {
+                font-family: 'Viga', 'Cascadia Mono','Liberation Mono','Courier New', Courier, monospace;
+                font-size: 3.5rem;
+                font-weight: 900;
+                text-align: center;
+                # margin-bottom: 0.5rem;
+                background: -webkit-linear-gradient(90deg, #9333ea, #ec4899);
+                -webkit-background-clip: text;
+                letter-spacing: .1px;
+            }
+            .tagline {
+                font-family: 'Viga', 'Courier New', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                font-size: 1.1rem;
+                font-weight: 300;
+                text-align: center;
+                color: #4b5563;
+                # margin-bottom: 1.8rem;
+            }
+            .stExpander {
+                background-color: #ffffff !important;
+                border-radius: 10px !important;
+                border: 1px solid #e5e7eb !important;
+                box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            }
+            hr.divider {
+                border: none;
+                border-top: 1px solid #e5e7eb;
+                margin: 0.5rem auto 0.25rem auto;
+                width: 80%;
+            }
+            /* Buttons */
+            .stButton>button {
+                background: linear-gradient(90deg, #2563eb, #3b82f6) !important;
+                color: white !important;
+                border: none !important;
+                border-radius: 8px !important;
+                font-weight: 600 !important;
+                transition: transform .1s ease-in-out;
+            }
+            .stButton>button:hover {
+                transform: translateY(-1px);
+                filter: brightness(1.05);
+            }
+            /* Streamlit header spacing fix */
+            .block-container {
+                padding-top: 1.6rem;
+            }
+            /* Chart title spacing */
+            h2, h3 {
+                color: #0f172a !important;
+                font-weight: 700 !important;
+            }
+        </style>""",
         unsafe_allow_html=True,
     )
 
-    # 🎯 Choose icon (options: 🧭, 🕵️, 🔐, 🧩, 🚀, 🛡️)
     # --------------------------
     # App Heading + Tagline
     # --------------------------
@@ -666,9 +733,18 @@ def main():
     # 🔥 Start ZAP daemon in background
     # start_zap_daemon(ZAP_PATH, API_KEY, port=PORT)
 
-    # Only 2 menus now
-    menu = ["SAST Scanner", "API Vulnerability Scanner", "Contract Scanner"]
-    choice = st.sidebar.radio("📌 Menu", menu)
+    menu = {
+        "🧠 SAST Scanner": "SAST Scanner",
+        "🌐 API Vulnerability": "API Vulnerability Scanner",
+        "📜 Contract Scanner": "Contract Scanner"
+    }
+
+    choice = st.sidebar.radio("📌 Menu", list(menu.keys()))
+    st.sidebar.markdown("---")
+    st.sidebar.info("🕵️Secure Release v1.0\nSecure Every Release.")
+    choice = menu[choice]
+
+    # choice = st.sidebar.radio("📌 Menu", menu)
     
     if choice == "SAST Scanner":
         SAST_page(cfg, config_path)

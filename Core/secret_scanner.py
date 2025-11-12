@@ -53,7 +53,7 @@ def scan_with_detect_secrets(file_path: Path):
     return findings
 
 async def scan(config):
-    print(Fore.BLUE + f"\n[+] 🕵️ Running Secret Scanner...", flush=True)
+    # print(Fore.BLUE + f"\n[+] 🕵️ Running Secret Scanner...", flush=True)
 
     target_dirs = config.get('target_dirs', ['.'])
     if isinstance(target_dirs, list) and len(target_dirs) == 1 and isinstance(target_dirs[0], list):

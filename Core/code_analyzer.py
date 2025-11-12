@@ -12,7 +12,7 @@ def is_semgrep_available():
     return which("semgrep") is not None
 
 async def scan(config):
-    print(Fore.LIGHTGREEN_EX + f"\n[+] 🧑‍💻 Running Static Code Analyzer...", flush=True)
+    # print(Fore.LIGHTGREEN_EX + f"\n[+] 🧑‍💻 Running Static Code Analyzer...", flush=True)
     results = []
 
     if not is_semgrep_available():
