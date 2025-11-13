@@ -238,3 +238,17 @@
 [16:58:40] ERROR: Invalid JSON from safety for C:\Users\A181244\OneDrive - ATOS\Santosh\Personal\Training\Python\Secure-Release\Sample_code\dvpwa\requirements.txt
 [17:03:17] ERROR: Error running subprocess: Command 'safety scan --output json --file=C:\Users\A181244\OneDrive - ATOS\Santosh\Personal\Training\Python\Secure-Release\Sample_code\dvpwa\requirements.txt' timed out after 60 seconds
 [17:03:17] ERROR: Safety scan failed for C:\Users\A181244\OneDrive - ATOS\Santosh\Personal\Training\Python\Secure-Release\Sample_code\dvpwa\requirements.txt: Command 'safety scan --output json --file=C:\Users\A181244\OneDrive - ATOS\Santosh\Personal\Training\Python\Secure-Release\Sample_code\dvpwa\requirements.txt' timed out after 60 seconds
+[15:55:28] ERROR: Error running subprocess: 
+[15:55:28] ERROR: Safety scan failed for C:\Users\A181244\OneDrive - ATOS\Santosh\Personal\Training\Python\Secure-Release\Sample_code\dvpwa\requirements.txt: 
+[16:01:08] ERROR: Error running subprocess: 
+[16:01:08] ERROR: Safety scan failed for C:\Users\A181244\OneDrive - ATOS\Santosh\Personal\Training\Python\Secure-Release\Sample_code\dvpwa\requirements.txt: 
+[16:05:14] ERROR: Error running subprocess: 
+[16:05:14] ERROR: Safety scan failed for C:\Users\A181244\OneDrive - ATOS\Santosh\Personal\Training\Python\Secure-Release\Sample_code\dvpwa\requirements.txt: 
+[16:07:14] ERROR: Error running subprocess: 
+[16:07:14] ERROR: Safety scan failed for C:\Users\A181244\OneDrive - ATOS\Santosh\Personal\Training\Python\Secure-Release\Sample_code\dvpwa\requirements.txt: 
+[16:14:06] ERROR: Error running subprocess: 
+[16:14:06] ERROR: Safety scan failed for C:\Users\A181244\OneDrive - ATOS\Santosh\Personal\Training\Python\Secure-Release\Sample_code\dvpwa\requirements.txt: 
+[16:20:18] ERROR: Error running subprocess: 
+[16:20:19] ERROR: Safety scan failed for C:\Users\A181244\OneDrive - ATOS\Santosh\Personal\Training\Python\Secure-Release\Sample_code\dvpwa\requirements.txt: 
+[16:23:07] ERROR: Error running subprocess: 
+[16:23:07] ERROR: Safety scan failed for C:\Users\A181244\OneDrive - ATOS\Santosh\Personal\Training\Python\Secure-Release\Sample_code\dvpwa\requirements.txt: 
