@@ -23,15 +23,17 @@ API_Scanner:
   auth: {}
   zap:
     enabled: true
-    path: C:\Program Files\ZAP\Zed Attack Proxy\zap.bat
     api_key: jsgisco11qs3cusiu1b3m7dilj
     proxy: http://127.0.0.1:8081
   fuzzer:
     targets:
     - method: GET
       path: /Challenges
+      params: []
+      body_template: {}
     - method: POST
       path: /Users
+      params: []
       body_template:
         email: test@example.com
         password: pass123

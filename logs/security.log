@@ -252,3 +252,5 @@
 [16:20:19] ERROR: Safety scan failed for C:\Users\A181244\OneDrive - ATOS\Santosh\Personal\Training\Python\Secure-Release\Sample_code\dvpwa\requirements.txt: 
 [16:23:07] ERROR: Error running subprocess: 
 [16:23:07] ERROR: Safety scan failed for C:\Users\A181244\OneDrive - ATOS\Santosh\Personal\Training\Python\Secure-Release\Sample_code\dvpwa\requirements.txt: 
+[10:31:03] ERROR: Error running subprocess: Command 'safety scan --output json --file=C:\Users\A181244\OneDrive - ATOS\Santosh\Personal\Training\Python\Secure-Release\Sample_code\dvpwa\requirements.txt' timed out after 60 seconds
+[10:31:03] ERROR: Safety scan failed for C:\Users\A181244\OneDrive - ATOS\Santosh\Personal\Training\Python\Secure-Release\Sample_code\dvpwa\requirements.txt: Command 'safety scan --output json --file=C:\Users\A181244\OneDrive - ATOS\Santosh\Personal\Training\Python\Secure-Release\Sample_code\dvpwa\requirements.txt' timed out after 60 seconds

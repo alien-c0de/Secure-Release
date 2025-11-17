@@ -44,7 +44,7 @@ def plot_severity_chart(severity_counts):
         .properties(height=200, width=370)
     )
 
-    st.altair_chart(chart, use_container_width=False)
+    st.altair_chart(chart, width="content")
 
 
 def result_card(tool, issues):
@@ -55,7 +55,7 @@ def result_card(tool, issues):
         "Dependency Scan": "linear-gradient(90deg, #0ea5e9, #38bdf8)",  # Blue
         "Secret Scanner":  "linear-gradient(90deg, #10b981, #34d399)",  # Green
         "Code Analyzer":   "linear-gradient(90deg, #f59e0b, #fbbf24)",  # Amber
-        "ZAP":             "linear-gradient(90deg, #0ea5e9, #fbbf24)",  # Blue-Yellow
+        "ZAP":             "linear-gradient(90deg, #0ea5e9, #38bdf8)",  # Blue-Yellow
         "Fuzzer":          "linear-gradient(90deg, #10b981, #34d399)",  # Green
     }
 

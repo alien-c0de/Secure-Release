@@ -5,6 +5,8 @@ from dataclasses import dataclass, asdict
 from typing import Any, Dict, List, Optional
 from urllib.parse import urljoin
 from colorama import Fore, Style
+import pyfiglet
+import os
 
 try:
     from zapv2 import ZAPv2
@@ -245,11 +247,21 @@ async def _run_zap_scan(base_url: str, zap_cfg: Dict[str, Any], timeout_sec: int
 
     return [f for f in findings if isinstance(f, ApiFinding)]
 
-
 # ---------------------------
 # Public entry point
 # ---------------------------
 async def scan_api(cfg: Dict[str, Any]) -> Dict[str, List[Dict[str, Any]]]:
+    if os.name == 'nt':
+        os.system('cls')
+    else:
+        os.system('clear')
+    
+    # Fancy header
+    figlet_name = cfg.get("tool_info", {}).get("tool_name", "Tool Name")
+    terminal_header = pyfiglet.figlet_format(figlet_name, font="doom")
+    print(Fore.YELLOW + Style.BRIGHT + terminal_header + Fore.RESET + Style.RESET_ALL)
+    print(Fore.GREEN + Style.BRIGHT + "🚀 Starting API Vulnerability Scans... Please Wait...\n", flush=True)
+
     api_cfg = cfg.get("API_Scanner", {})
     base_url = api_cfg.get("base_url", "").strip()
     # openapi_url = api_cfg.get("openapi_url", "").strip() or None

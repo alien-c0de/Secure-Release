@@ -3,7 +3,6 @@ from pathlib import Path
 from colorama import Fore, Style
 from modules.sast_module import sast_page
 from modules.api_module import api_page
-from time import perf_counter
 from Core import *
 
 from gui_helpers import result_card, report_download_button  # optional if you move helpers
@@ -15,13 +14,13 @@ def main():
         <style>
             .title-font {
                 font-family: 'Viga', 'Cascadia Mono','Liberation Mono','Courier New', Courier, monospace;
-                font-size: 3.5rem;
+                font-size: 2.5rem;
                 font-weight: 900;
                 text-align: center;
                 # margin-bottom: 0.5rem;
                 background: -webkit-linear-gradient(90deg, #9333ea, #ec4899);
                 -webkit-background-clip: text;
-                letter-spacing: .1px;
+                letter-spacing: .2px;
             }
             .tagline {
                 font-family: 'Viga', 'Courier New', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -58,7 +57,7 @@ def main():
             }
             /* Streamlit header spacing fix */
             .block-container {
-                padding-top: 1.6rem;
+                padding-top: 2rem;
             }
             /* Chart title spacing */
             h2, h3 {
@@ -81,7 +80,7 @@ def main():
     cfg = load_config(config_path)
 
     menu = {
-        "🧠 SAST Scanner": "SAST Scanner",
+        "🛠️ SAST Scanner": "SAST Scanner",
         "🌐 API Vulnerability": "API Vulnerability Scanner",
         "📜 Contract Scanner": "Contract Scanner"
     }

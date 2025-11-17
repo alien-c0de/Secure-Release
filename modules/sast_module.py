@@ -54,7 +54,7 @@ async def run_sast_scans(config_path="config.yaml"):
     figlet_name = cfg.get("tool_info", {}).get("tool_name", "Tool Name")
     terminal_header = pyfiglet.figlet_format(figlet_name, font="doom")
     print(Fore.YELLOW + Style.BRIGHT + terminal_header + Fore.RESET + Style.RESET_ALL)
-    print(Fore.GREEN + Style.BRIGHT + "🚀 Starting SAST security scans... please wait...\n", flush=True)
+    print(Fore.GREEN + Style.BRIGHT + "🚀 Starting SAST Security Scans... Please Wait...\n", flush=True)
 
     try:
         if cfg["technology"].upper() == "PYTHON":
@@ -106,44 +106,45 @@ TECH_DEPENDENCIES = {
 }
 
 def sast_page(cfg, config_path, result_card_fn, report_download_button_fn):
-    st.header("📊 SAST Dashboard")
+    st.subheader("📊 SAST Dashboard")
 
-    with st.expander("⚙️ Configuration", expanded=False):
-        st.subheader("📄 Assessment Project Details")
-
+    with st.expander("**⚙️ Assessment Project Configuration**", expanded = True):
         project_cfg = cfg.get("Assessment_Project_Details", {})
 
-        folder_path = st.text_input(
-            "Application Folder Path:",
-            value=cfg.get("target_dirs", ["./"])[0],
-            help="Path to application source folder"
-        )
+        folder_path = st.text_input("**📁 Application Folder Path:**", value=cfg.get("target_dirs", ["./"])[0], help="Path to application source folder")
 
-        col1, col2 = st.columns([2, 2])
+        col1, col2, col21= st.columns([2, 1, 3])
         with col1:
-            name = st.text_input("Application Name", value=project_cfg.get("name", ""))
+            name = st.text_input("**🏷️ Application Name:**", value=project_cfg.get("name", ""), help="Enter the official name of your application or project.")
         with col2:
-            version = st.text_input("Version", value=project_cfg.get("version", ""))
-
+            version = st.text_input("**🔢 Version:**", value=project_cfg.get("version", ""), help="Specify the current version of the application, e.g., 1.0.0 or v2.3.")
+        with col21:
+            description = st.text_input("**📝 Application Description:**", value=project_cfg.get("description", ""), help="Provide a short description of the purpose and functionality of the application.")
         col3, col4 = st.columns([2, 2])
         with col3:
-            technology = st.selectbox(
-                "Application Technology",
-                list(TECH_DEPENDENCIES.keys()),
-                index=list(TECH_DEPENDENCIES.keys()).index(
-                    project_cfg.get("technology", "Python")
-                ) if project_cfg.get("technology") in TECH_DEPENDENCIES else 0
-            )
+            technology = st.selectbox("**🧩 Application Technology:**",
+                        list(TECH_DEPENDENCIES.keys()),
+                        index=list(TECH_DEPENDENCIES.keys()).index(
+                            project_cfg.get("technology", "Python")
+                        ) if project_cfg.get("technology") in TECH_DEPENDENCIES else 0,
+                        help="Select the primary development platform or tech stack used for this application.")
         with col4:
-            description = st.text_area(
-                "Application Description",
-                value=project_cfg.get("description", ""),
-                height=80,
-                placeholder="Briefly describe your project..."
+            st.markdown("**📌 Suggested Dependency Files:**")
+            deps = TECH_DEPENDENCIES.get(technology, [])
+            formatted = "<br>".join([f"{i}: {d}" for i, d in enumerate(deps)])
+            st.markdown(
+                f"""
+                <div style="
+                    background-color: #f5f5f5;
+                    border: 1px solid #d1d5db;
+                    border-radius: 5px;
+                    padding: 5px 5px;
+                    font-size: 14px;
+                    color: #374151;
+                ">{formatted}</div>
+                """,
+                unsafe_allow_html=True
             )
-
-        st.markdown("📌 **Suggested Dependency Files:**")
-        st.json(TECH_DEPENDENCIES.get(technology, []))
 
         if st.button("💾 Save Configuration", key="save_sast_config"):
             cfg["Assessment_Project_Details"] = {
