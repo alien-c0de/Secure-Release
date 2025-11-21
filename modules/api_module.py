@@ -114,7 +114,7 @@ def api_page(cfg, result_card_fn):
 
         with col1:
             with st.expander("**🌍 API Target Configuration**", expanded=True):
-                base_url = st.text_input("**🌍 API Base URL:**", value=api_cfg.get("base_url", "https://httpbin.org"), help="Enter the base URL of the target API that you want to scan.")
+                base_url = st.text_input("**🌐 API Base URL:**", value=api_cfg.get("base_url", "https://httpbin.org"), help="Enter the base URL of the target API that you want to scan.")
         with col2:
             with st.expander("**🔑 Authentication**", expanded=True):
                 auth_types = ["none", "bearer", "api_key", "basic"]

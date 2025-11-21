@@ -37,9 +37,20 @@
             "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
             "package": "aiohttp",
             "current ver": "aiohttp==3.5.3",
-            "advisory id": "74251",
+            "advisory id": "62583",
             "severity": "UNKNOWN",
-            "affected ver range": ">=2.0.0rc1, <3.10.11",
+            "affected ver range": "<3.9.0",
+            "description": "",
+            "recommended ver": "3.12.14",
+            "reference URL": "N/A"
+        },
+        {
+            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
+            "package": "aiohttp",
+            "current ver": "aiohttp==3.5.3",
+            "advisory id": "71545",
+            "severity": "UNKNOWN",
+            "affected ver range": "<3.9.4",
             "description": "",
             "recommended ver": "3.12.14",
             "reference URL": "N/A"
@@ -59,9 +70,20 @@
             "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
             "package": "aiohttp",
             "current ver": "aiohttp==3.5.3",
-            "advisory id": "64644",
+            "advisory id": "74251",
             "severity": "UNKNOWN",
-            "affected ver range": "<3.9.1",
+            "affected ver range": ">=2.0.0rc1, <3.10.11",
+            "description": "",
+            "recommended ver": "3.12.14",
+            "reference URL": "N/A"
+        },
+        {
+            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
+            "package": "aiohttp",
+            "current ver": "aiohttp==3.5.3",
+            "advisory id": "62582",
+            "severity": "UNKNOWN",
+            "affected ver range": ">=2.0.0rc1, <3.9.0",
             "description": "",
             "recommended ver": "3.12.14",
             "reference URL": "N/A"
@@ -103,53 +125,20 @@
             "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
             "package": "aiohttp",
             "current ver": "aiohttp==3.5.3",
-            "advisory id": "61657",
-            "severity": "UNKNOWN",
-            "affected ver range": "<3.8.6",
-            "description": "",
-            "recommended ver": "3.12.14",
-            "reference URL": "N/A"
-        },
-        {
-            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
-            "package": "aiohttp",
-            "current ver": "aiohttp==3.5.3",
-            "advisory id": "62326",
-            "severity": "UNKNOWN",
-            "affected ver range": "<3.8.6",
-            "description": "",
-            "recommended ver": "3.12.14",
-            "reference URL": "N/A"
-        },
-        {
-            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
-            "package": "aiohttp",
-            "current ver": "aiohttp==3.5.3",
-            "advisory id": "71545",
-            "severity": "UNKNOWN",
-            "affected ver range": "<3.9.4",
-            "description": "",
-            "recommended ver": "3.12.14",
-            "reference URL": "N/A"
-        },
-        {
-            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
-            "package": "aiohttp",
-            "current ver": "aiohttp==3.5.3",
-            "advisory id": "62582",
-            "severity": "UNKNOWN",
-            "affected ver range": ">=2.0.0rc1, <3.9.0",
-            "description": "",
-            "recommended ver": "3.12.14",
-            "reference URL": "N/A"
-        },
-        {
-            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
-            "package": "aiohttp",
-            "current ver": "aiohttp==3.5.3",
             "advisory id": "78162",
             "severity": "UNKNOWN",
             "affected ver range": "<3.12.14",
+            "description": "",
+            "recommended ver": "3.12.14",
+            "reference URL": "N/A"
+        },
+        {
+            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
+            "package": "aiohttp",
+            "current ver": "aiohttp==3.5.3",
+            "advisory id": "59725",
+            "severity": "UNKNOWN",
+            "affected ver range": "<=3.8.4",
             "description": "",
             "recommended ver": "3.12.14",
             "reference URL": "N/A"
@@ -169,9 +158,9 @@
             "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
             "package": "aiohttp",
             "current ver": "aiohttp==3.5.3",
-            "advisory id": "62583",
+            "advisory id": "64644",
             "severity": "UNKNOWN",
-            "affected ver range": "<3.9.0",
+            "affected ver range": "<3.9.1",
             "description": "",
             "recommended ver": "3.12.14",
             "reference URL": "N/A"
@@ -180,9 +169,20 @@
             "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
             "package": "aiohttp",
             "current ver": "aiohttp==3.5.3",
-            "advisory id": "59725",
+            "advisory id": "61657",
             "severity": "UNKNOWN",
-            "affected ver range": "<=3.8.4",
+            "affected ver range": "<3.8.6",
+            "description": "",
+            "recommended ver": "3.12.14",
+            "reference URL": "N/A"
+        },
+        {
+            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
+            "package": "aiohttp",
+            "current ver": "aiohttp==3.5.3",
+            "advisory id": "62326",
+            "severity": "UNKNOWN",
+            "affected ver range": "<3.8.6",
             "description": "",
             "recommended ver": "3.12.14",
             "reference URL": "N/A"
@@ -213,17 +213,6 @@
             "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
             "package": "jinja2",
             "current ver": "jinja2==2.10              # via aiohttp-jinja2",
-            "advisory id": "54679",
-            "severity": "UNKNOWN",
-            "affected ver range": ">=0,<2.10.1",
-            "description": "",
-            "recommended ver": "3.1.6",
-            "reference URL": "N/A"
-        },
-        {
-            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
-            "package": "jinja2",
-            "current ver": "jinja2==2.10              # via aiohttp-jinja2",
             "advisory id": "71591",
             "severity": "UNKNOWN",
             "affected ver range": "<3.1.4",
@@ -246,9 +235,20 @@
             "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
             "package": "jinja2",
             "current ver": "jinja2==2.10              # via aiohttp-jinja2",
-            "advisory id": "39525",
+            "advisory id": "64227",
             "severity": "UNKNOWN",
-            "affected ver range": "<2.11.3",
+            "affected ver range": "<3.1.3",
+            "description": "",
+            "recommended ver": "3.1.6",
+            "reference URL": "N/A"
+        },
+        {
+            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
+            "package": "jinja2",
+            "current ver": "jinja2==2.10              # via aiohttp-jinja2",
+            "advisory id": "54679",
+            "severity": "UNKNOWN",
+            "affected ver range": ">=0,<2.10.1",
             "description": "",
             "recommended ver": "3.1.6",
             "reference URL": "N/A"
@@ -268,9 +268,9 @@
             "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
             "package": "jinja2",
             "current ver": "jinja2==2.10              # via aiohttp-jinja2",
-            "advisory id": "64227",
+            "advisory id": "39525",
             "severity": "UNKNOWN",
-            "affected ver range": "<3.1.3",
+            "affected ver range": "<2.11.3",
             "description": "",
             "recommended ver": "3.1.6",
             "reference URL": "N/A"
@@ -279,9 +279,9 @@
             "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
             "package": "pyyaml",
             "current ver": "pyyaml==3.13",
-            "advisory id": "36333",
+            "advisory id": "38100",
             "severity": "UNKNOWN",
-            "affected ver range": "<4",
+            "affected ver range": "<5.3.1",
             "description": "",
             "recommended ver": "5.4",
             "reference URL": "N/A"
@@ -301,9 +301,9 @@
             "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
             "package": "pyyaml",
             "current ver": "pyyaml==3.13",
-            "advisory id": "38100",
+            "advisory id": "36333",
             "severity": "UNKNOWN",
-            "affected ver range": "<5.3.1",
+            "affected ver range": "<4",
             "description": "",
             "recommended ver": "5.4",
             "reference URL": "N/A"
@@ -311,12 +311,13 @@
     ],
     "Secret Scanner": [
         {
-            "severity": "High",
+            "tool": "detect-secrets",
+            "severity": "HIGH",
             "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\appscan-config.xml",
             "line": 2,
             "type": "Secret Keyword",
             "match": "true",
-            "Tool Details": {
+            "details": {
                 "SourceID": null,
                 "SourceType": null,
                 "Verified": false,
@@ -326,12 +327,13 @@
             }
         },
         {
-            "severity": "High",
+            "tool": "detect-secrets",
+            "severity": "HIGH",
             "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\result.json",
             "line": 42,
             "type": "Hex High Entropy String",
             "match": "d37b7699aa91b182ce9a25fe1cdb6e20ba0ed1b1",
-            "Tool Details": {
+            "details": {
                 "SourceID": null,
                 "SourceType": null,
                 "Verified": false,
@@ -341,12 +343,13 @@
             }
         },
         {
-            "severity": "High",
+            "tool": "detect-secrets",
+            "severity": "HIGH",
             "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\config\\dev.yaml",
             "line": 3,
             "type": "Secret Keyword",
             "match": "postgres",
-            "Tool Details": {
+            "details": {
                 "SourceID": null,
                 "SourceType": null,
                 "Verified": false,
@@ -354,6 +357,97 @@
                 "Commit": null,
                 "Path": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\config\\dev.yaml"
             }
+        },
+        {
+            "tool": "TruffleHog3",
+            "severity": "MEDIUM",
+            "file": "sqli/README.rst",
+            "line": 234,
+            "secret": "17c4520f6cfd1ab53d8745e84681eb49",
+            "rule_id": "high-entropy",
+            "message": "High Entropy",
+            "context": {
+                "234": "      17c4520f6cfd1ab53d8745e84681eb49 | {superadmin}   |     1"
+            },
+            "id": "18f59b00-d7c7-33b0-9166-ed04a6393a31"
+        },
+        {
+            "tool": "TruffleHog3",
+            "severity": "MEDIUM",
+            "file": "sqli/README.rst",
+            "line": 232,
+            "secret": "5f4dcc3b5aa765d61d8327deb882cf99",
+            "rule_id": "high-entropy",
+            "message": "High Entropy",
+            "context": {
+                "232": "      5f4dcc3b5aa765d61d8327deb882cf99 | {j.doe,s.king} |     2"
+            },
+            "id": "19ef0a3e-3040-3cba-9178-509abdc2f98b"
+        },
+        {
+            "tool": "TruffleHog3",
+            "severity": "MEDIUM",
+            "file": "README.rst",
+            "line": 233,
+            "secret": "1da0bac388e8e0409a83e121e1af6ef4",
+            "rule_id": "high-entropy",
+            "message": "High Entropy",
+            "context": {
+                "233": "      1da0bac388e8e0409a83e121e1af6ef4 | {p.parker}     |     1"
+            },
+            "id": "93d1eb2d-405a-36d0-8ac3-064160eb68de"
+        },
+        {
+            "tool": "TruffleHog3",
+            "severity": "MEDIUM",
+            "file": "README.rst",
+            "line": 232,
+            "secret": "5f4dcc3b5aa765d61d8327deb882cf99",
+            "rule_id": "high-entropy",
+            "message": "High Entropy",
+            "context": {
+                "232": "      5f4dcc3b5aa765d61d8327deb882cf99 | {j.doe,s.king} |     2"
+            },
+            "id": "712056b2-cc46-3f0d-9ca0-5168b53a7881"
+        },
+        {
+            "tool": "TruffleHog3",
+            "severity": "MEDIUM",
+            "file": "README.rst",
+            "line": 234,
+            "secret": "17c4520f6cfd1ab53d8745e84681eb49",
+            "rule_id": "high-entropy",
+            "message": "High Entropy",
+            "context": {
+                "234": "      17c4520f6cfd1ab53d8745e84681eb49 | {superadmin}   |     1"
+            },
+            "id": "5164b2f6-4b8e-39f5-85b4-e0e5df25e44a"
+        },
+        {
+            "tool": "TruffleHog3",
+            "severity": "MEDIUM",
+            "file": "result.json",
+            "line": 42,
+            "secret": "d37b7699aa91b182ce9a25fe1cdb6e20ba0ed1b1",
+            "rule_id": "high-entropy",
+            "message": "High Entropy",
+            "context": {
+                "42": "          \"commit\": \"d37b7699aa91b182ce9a25fe1cdb6e20ba0ed1b1\","
+            },
+            "id": "12a10616-9a46-3f8d-a8c4-59f3b319612c"
+        },
+        {
+            "tool": "TruffleHog3",
+            "severity": "MEDIUM",
+            "file": "sqli/README.rst",
+            "line": 233,
+            "secret": "1da0bac388e8e0409a83e121e1af6ef4",
+            "rule_id": "high-entropy",
+            "message": "High Entropy",
+            "context": {
+                "233": "      1da0bac388e8e0409a83e121e1af6ef4 | {p.parker}     |     1"
+            },
+            "id": "82895083-c970-32cf-b435-d6223f18a744"
         }
     ],
     "Code Analyzer": [
@@ -420,46 +514,6 @@
             "line": 41,
             "pattern_name": "python.lang.security.audit.md5-used-as-password.md5-used-as-password",
             "description": "It looks like MD5 is used as a password hash. MD5 is not considered a secure password hash because it can be cracked by an attacker in a short amount of time. Use a suitable password hashing function such as scrypt. You can use `hashlib.scrypt`."
-        },
-        {
-            "tool": "Semgrep",
-            "impact": "WARNING",
-            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\sqli\\static\\js\\materialize.js",
-            "line": 565,
-            "pattern_name": "javascript.lang.security.audit.detect-non-literal-regexp.detect-non-literal-regexp",
-            "description": "RegExp() called with a `t` function argument, this might allow an attacker to cause a Regular Expression Denial-of-Service (ReDoS) within your application as RegExP blocks the main thread. For this reason, it is recommended to use hardcoded regexes instead. If your regex is run on user-controlled input, consider performing input validation or use a regex checking/sanitization library such as https://www.npmjs.com/package/recheck to verify that the regex does not appear vulnerable to ReDoS."
-        },
-        {
-            "tool": "Semgrep",
-            "impact": "INFO",
-            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\sqli\\static\\js\\materialize.js",
-            "line": 645,
-            "pattern_name": "javascript.lang.security.audit.unsafe-formatstring.unsafe-formatstring",
-            "description": "Detected string concatenation with a non-literal variable in a util.format / console.log function. If an attacker injects a format specifier in the string, it will forge the log message. Try to use constant values for the format string."
-        },
-        {
-            "tool": "Semgrep",
-            "impact": "INFO",
-            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\sqli\\static\\js\\materialize.js",
-            "line": 661,
-            "pattern_name": "javascript.lang.security.audit.unsafe-formatstring.unsafe-formatstring",
-            "description": "Detected string concatenation with a non-literal variable in a util.format / console.log function. If an attacker injects a format specifier in the string, it will forge the log message. Try to use constant values for the format string."
-        },
-        {
-            "tool": "Semgrep",
-            "impact": "INFO",
-            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\sqli\\static\\js\\materialize.js",
-            "line": 699,
-            "pattern_name": "javascript.lang.security.audit.unsafe-formatstring.unsafe-formatstring",
-            "description": "Detected string concatenation with a non-literal variable in a util.format / console.log function. If an attacker injects a format specifier in the string, it will forge the log message. Try to use constant values for the format string."
-        },
-        {
-            "tool": "Semgrep",
-            "impact": "ERROR",
-            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\sqli\\static\\js\\materialize.js",
-            "line": 3444,
-            "pattern_name": "javascript.browser.security.insecure-document-method.insecure-document-method",
-            "description": "User controlled data in methods like `innerHTML`, `outerHTML` or `document.write` is an anti-pattern that can lead to XSS vulnerabilities"
         }
     ]
 }
