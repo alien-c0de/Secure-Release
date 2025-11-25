@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Configuration enableSecrets="true" sourceCodeOnly="true">
-  <Targets>
-    <Target path="">
-      <Exclude>dvpwa\sqli\static\css\materialize.min.css</Exclude>
-    </Target>
-  </Targets>
-</Configuration>

@@ -83,7 +83,7 @@ def result_card(tool, issues):
             ">
                 {tool} Results ({count})
             </div>
-            <div style="padding: 12px;">
+            <div style="padding: 0px;">
         """,
         unsafe_allow_html=True,
     )
