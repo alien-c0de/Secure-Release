@@ -2,10 +2,16 @@ import os
 import html as ihtml
 from datetime import datetime
 from colorama import Fore
+from Utils.logger_config import get_logger
+
+# Initialize logger for this module
+logger = get_logger(__name__)
 
 
 def render_html(results, config):
     """Generate full Secure Release HTML report."""
+    logger.info("Starting HTML report generation")
+    
     # --- Metadata extraction ---
     tool_info = config.get("tool_info", {})
     report_info = config.get("report", {})
@@ -21,6 +27,8 @@ def render_html(results, config):
     app_name = project.get("name", "Project")
     app_version = project.get("version", "1.0.0")
     app_technology = project.get("technology", "N/A")
+    
+    logger.debug(f"Report metadata - App: {app_name}, Version: {app_version}, Tech: {app_technology}")
 
     # --- Issue collection ---
     issues = {
@@ -28,7 +36,12 @@ def render_html(results, config):
         "Code Analyzer": results.get("Code Analyzer", []),
         "Dependency Scan": results.get("Dependency Scan", []),
     }
-    total_findings = sum(len(v) for v in issues.values())
+    
+    # Calculate totals
+    issue_counts = {k: len(v) for k, v in issues.items()}
+    total_findings = sum(issue_counts.values())
+    
+    logger.info(f"Report statistics - Total: {total_findings}, Breakdown: {issue_counts}")
 
     # --- CSS Styling ---
     css = """
@@ -134,6 +147,8 @@ def render_html(results, config):
     }
     """
 
+    logger.debug("Building HTML structure")
+
     # --- HTML Header ---
     html = f"""<!DOCTYPE html>
     <html lang="en">
@@ -151,7 +166,7 @@ def render_html(results, config):
             <h2>📊 {report_type} - Total Findings ({total_findings})</h2>
             <h4>Application Name: {app_name} | Version: {app_version} | Technology: {app_technology}</h4>
         </div>
-        <div class="timestamp">🕒 Report Generated: {timestamp}</div>
+        <div class="timestamp">🕐 Report Generated: {timestamp}</div>
     """
 
     # --- Helper: Render field/value HTML ---
@@ -166,6 +181,7 @@ def render_html(results, config):
 
     # --- Helper: Deduplicate dependency scan ---
     def deduplicate_issues(section_issues):
+        logger.debug(f"Deduplicating {len(section_issues)} dependency issues")
         deduped = {}
         for issue in section_issues:
             key = (issue.get("package", ""), issue.get("current ver", ""),
@@ -174,25 +190,30 @@ def render_html(results, config):
                 deduped[key] = {**issue, "advisory ids": [issue.get("advisory id", "")]}
             else:
                 deduped[key]["advisory ids"].append(issue.get("advisory id", ""))
+        logger.debug(f"After deduplication: {len(deduped)} unique issues")
         return list(deduped.values())
 
     # --- Generic section rendering ---
     def render_section(name, section_issues, icon, css_class, dedup=False):
         nonlocal html
+        logger.debug(f"Rendering section: {name} with {len(section_issues)} issues")
+
+        # data = deduplicate_issues(section_issues) if dedup else section_issues
+        
         html += f'<div class="section">'
         html += f'<div class="section-title {css_class}">{icon} {name} ({len(section_issues)})</div><div class="card">'
 
         if not section_issues:
             html += '<div class="item">✅ No issues found.</div></div></div>'
+            logger.debug(f"Section {name} has no issues")
             return
 
-        data = deduplicate_issues(section_issues) if dedup else section_issues
-        for issue in data:
+        for issue in section_issues:
             html += '<div class="item">' + "".join(render_field(k, v) for k, v in issue.items()) + '</div>'
         html += '</div></div>'
 
     # --- Render each section ---
-    render_section("Secret Scanner", issues["Secret Scanner"], "🔑", "sec-secret")
+    render_section("Secret Scanner", issues["Secret Scanner"], "🔒", "sec-secret")
     render_section("Code Analyzer", issues["Code Analyzer"], "🧑‍💻", "sec-code")
     render_section("Dependency Scan", issues["Dependency Scan"], "📚", "sec-dep", dedup=True)
 
@@ -201,18 +222,31 @@ def render_html(results, config):
         <footer>{footer} &middot; © {year} {company}</footer>
     </div></body></html>
     """
+    
+    logger.info("HTML report generation completed successfully")
     return html
 
 
 def generate(results, config):
     """Save generated HTML report to file."""
+    logger.info("Generating HTML report")
+    
     report_dir = config.get("report_dir", "./reports")
-    os.makedirs(report_dir, exist_ok=True)
+    logger.debug(f"Report directory: {report_dir}")
+    
+    try:
+        os.makedirs(report_dir, exist_ok=True)
+        logger.debug(f"Ensured report directory exists: {report_dir}")
 
-    report_path = os.path.join(report_dir, "security_report.html")
-    html_content = render_html(results, config)
+        report_path = os.path.join(report_dir, "security_report.html")
+        html_content = render_html(results, config)
 
-    with open(report_path, "w", encoding="utf-8") as f:
-        f.write(html_content)
+        with open(report_path, "w", encoding="utf-8") as f:
+            f.write(html_content)
 
-    print(Fore.LIGHTMAGENTA_EX + f"\n[+] HTML report generated at: {report_path}", flush=True)
+        logger.info(f"HTML report successfully written to: {report_path}")
+        print(Fore.LIGHTMAGENTA_EX + f"\n[+] HTML report generated at: {report_path}", flush=True)
+        
+    except Exception as e:
+        logger.error(f"Failed to generate HTML report: {str(e)}", exc_info=True)
+        print(Fore.RED + f"[!] Error generating HTML report: {str(e)}" + Fore.RESET)

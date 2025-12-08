@@ -3,326 +3,89 @@
         {
             "package": "aiohttp-jinja2",
             "current version": "aiohttp-jinja2==1.1.0",
-            "advisory id": "44432",
-            "affected_range": "<1.1.1",
+            "affected range": "<1.1.1",
             "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
             "ignored": null,
             "ignored reason": null,
-            "tool": "Safety"
-        },
-        {
-            "package": "aiohttp-jinja2",
-            "current version": "aiohttp-jinja2==1.1.0",
-            "advisory id": "37095",
-            "affected_range": "<1.1.1",
-            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
-            "ignored": null,
-            "ignored reason": null,
-            "tool": "Safety"
-        },
-        {
-            "package": "aiohttp-jinja2",
-            "current version": "aiohttp-jinja2==1.1.0",
-            "advisory id": "44431",
-            "affected_range": "<1.1.1",
-            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
-            "ignored": null,
-            "ignored reason": null,
-            "tool": "Safety"
+            "tool": "Safety",
+            "advisory ids": "44432, 37095, 44431"
         },
         {
             "package": "aiohttp",
             "current version": "aiohttp==3.5.3",
-            "advisory id": "39659",
-            "affected_range": "<3.7.4",
+            "affected range": ">= 1.0.0, <3.9.4",
             "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
             "ignored": null,
             "ignored reason": null,
-            "tool": "Safety"
-        },
-        {
-            "package": "aiohttp",
-            "current version": "aiohttp==3.5.3",
-            "advisory id": "70630",
-            "affected_range": ">= 1.0.0, <3.9.4",
-            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
-            "ignored": null,
-            "ignored reason": null,
-            "tool": "Safety"
-        },
-        {
-            "package": "aiohttp",
-            "current version": "aiohttp==3.5.3",
-            "advisory id": "59725",
-            "affected_range": "<=3.8.4",
-            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
-            "ignored": null,
-            "ignored reason": null,
-            "tool": "Safety"
-        },
-        {
-            "package": "aiohttp",
-            "current version": "aiohttp==3.5.3",
-            "advisory id": "61657",
-            "affected_range": "<3.8.6",
-            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
-            "ignored": null,
-            "ignored reason": null,
-            "tool": "Safety"
-        },
-        {
-            "package": "aiohttp",
-            "current version": "aiohttp==3.5.3",
-            "advisory id": "62326",
-            "affected_range": "<3.8.6",
-            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
-            "ignored": null,
-            "ignored reason": null,
-            "tool": "Safety"
-        },
-        {
-            "package": "aiohttp",
-            "current version": "aiohttp==3.5.3",
-            "advisory id": "71545",
-            "affected_range": "<3.9.4",
-            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
-            "ignored": null,
-            "ignored reason": null,
-            "tool": "Safety"
-        },
-        {
-            "package": "aiohttp",
-            "current version": "aiohttp==3.5.3",
-            "advisory id": "64642",
-            "affected_range": ">1.0.5,<3.9.2",
-            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
-            "ignored": null,
-            "ignored reason": null,
-            "tool": "Safety"
-        },
-        {
-            "package": "aiohttp",
-            "current version": "aiohttp==3.5.3",
-            "advisory id": "64644",
-            "affected_range": "<3.9.1",
-            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
-            "ignored": null,
-            "ignored reason": null,
-            "tool": "Safety"
-        },
-        {
-            "package": "aiohttp",
-            "current version": "aiohttp==3.5.3",
-            "advisory id": "62582",
-            "affected_range": ">=2.0.0rc1, <3.9.0",
-            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
-            "ignored": null,
-            "ignored reason": null,
-            "tool": "Safety"
-        },
-        {
-            "package": "aiohttp",
-            "current version": "aiohttp==3.5.3",
-            "advisory id": "62327",
-            "affected_range": "<3.8.0",
-            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
-            "ignored": null,
-            "ignored reason": null,
-            "tool": "Safety"
-        },
-        {
-            "package": "aiohttp",
-            "current version": "aiohttp==3.5.3",
-            "advisory id": "42692",
-            "affected_range": "<3.8.0",
-            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
-            "ignored": null,
-            "ignored reason": null,
-            "tool": "Safety"
-        },
-        {
-            "package": "aiohttp",
-            "current version": "aiohttp==3.5.3",
-            "advisory id": "78162",
-            "affected_range": "<3.12.14",
-            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
-            "ignored": null,
-            "ignored reason": null,
-            "tool": "Safety"
-        },
-        {
-            "package": "aiohttp",
-            "current version": "aiohttp==3.5.3",
-            "advisory id": "62583",
-            "affected_range": "<3.9.0",
-            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
-            "ignored": null,
-            "ignored reason": null,
-            "tool": "Safety"
-        },
-        {
-            "package": "aiohttp",
-            "current version": "aiohttp==3.5.3",
-            "advisory id": "74251",
-            "affected_range": ">=2.0.0rc1, <3.10.11",
-            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
-            "ignored": null,
-            "ignored reason": null,
-            "tool": "Safety"
+            "tool": "Safety",
+            "advisory ids": "70630, 74251, 62327, 42692, 61657, 62326, 71545, 62583, 64644, 62582, 64642, 78162, 39659, 59725"
         },
         {
             "package": "hiredis",
             "current version": "hiredis==0.3.1            # via aioredis",
-            "advisory id": "53276",
-            "affected_range": "<2.1.0",
+            "affected range": "<2.1.0",
             "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
             "ignored": null,
             "ignored reason": null,
-            "tool": "Safety"
+            "tool": "Safety",
+            "advisory ids": "53276"
         },
         {
             "package": "idna",
             "current version": "idna==2.8                 # via yarl",
-            "advisory id": "67895",
-            "affected_range": "<3.7",
+            "affected range": "<3.7",
             "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
             "ignored": null,
             "ignored reason": null,
-            "tool": "Safety"
+            "tool": "Safety",
+            "advisory ids": "67895"
         },
         {
             "package": "jinja2",
             "current version": "jinja2==2.10              # via aiohttp-jinja2",
-            "advisory id": "39525",
-            "affected_range": "<2.11.3",
+            "affected range": "<3.1.3",
             "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
             "ignored": null,
             "ignored reason": null,
-            "tool": "Safety"
-        },
-        {
-            "package": "jinja2",
-            "current version": "jinja2==2.10              # via aiohttp-jinja2",
-            "advisory id": "76378",
-            "affected_range": "<3.1.5",
-            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
-            "ignored": null,
-            "ignored reason": null,
-            "tool": "Safety"
-        },
-        {
-            "package": "jinja2",
-            "current version": "jinja2==2.10              # via aiohttp-jinja2",
-            "advisory id": "71591",
-            "affected_range": "<3.1.4",
-            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
-            "ignored": null,
-            "ignored reason": null,
-            "tool": "Safety"
-        },
-        {
-            "package": "jinja2",
-            "current version": "jinja2==2.10              # via aiohttp-jinja2",
-            "advisory id": "75976",
-            "affected_range": "<3.1.6",
-            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
-            "ignored": null,
-            "ignored reason": null,
-            "tool": "Safety"
-        },
-        {
-            "package": "jinja2",
-            "current version": "jinja2==2.10              # via aiohttp-jinja2",
-            "advisory id": "54679",
-            "affected_range": ">=0,<2.10.1",
-            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
-            "ignored": null,
-            "ignored reason": null,
-            "tool": "Safety"
-        },
-        {
-            "package": "jinja2",
-            "current version": "jinja2==2.10              # via aiohttp-jinja2",
-            "advisory id": "64227",
-            "affected_range": "<3.1.3",
-            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
-            "ignored": null,
-            "ignored reason": null,
-            "tool": "Safety"
+            "tool": "Safety",
+            "advisory ids": "64227, 71591, 54679, 75976, 39525, 76378"
         },
         {
             "package": "pyyaml",
             "current version": "pyyaml==3.13",
-            "advisory id": "36333",
-            "affected_range": "<4",
+            "affected range": "<5.3.1",
             "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
             "ignored": null,
             "ignored reason": null,
-            "tool": "Safety"
-        },
-        {
-            "package": "pyyaml",
-            "current version": "pyyaml==3.13",
-            "advisory id": "39611",
-            "affected_range": "<5.4",
-            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
-            "ignored": null,
-            "ignored reason": null,
-            "tool": "Safety"
-        },
-        {
-            "package": "pyyaml",
-            "current version": "pyyaml==3.13",
-            "advisory id": "38100",
-            "affected_range": "<5.3.1",
-            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\requirements.txt",
-            "ignored": null,
-            "ignored reason": null,
-            "tool": "Safety"
+            "tool": "Safety",
+            "advisory ids": "38100, 36333, 39611"
         }
     ],
     "Secret Scanner": [
         {
-            "severity": "INFO",
-            "plugin": "Hex High Entropy String",
-            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\safety_scan_results.json",
-            "line": 42,
-            "match": "58812f5c30cdccfc4de9db267bec2e36946aaedc",
-            "type": "Hex High Entropy String",
-            "details": {
-                "Verified": false,
-                "SecretHash": "7405d95fc73d28797dcdd89111fb3581c6920884",
-                "Commit": null,
-                "Path": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\safety_scan_results.json"
-            },
-            "tool": "detect-secrets"
-        },
-        {
-            "severity": "INFO",
-            "plugin": "Secret Keyword",
-            "file": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\config\\dev.yaml",
-            "line": 3,
-            "match": "postgres",
-            "type": "Secret Keyword",
-            "details": {
-                "Verified": false,
-                "SecretHash": "afc848c316af1a89d49826c5ae9d00ed769415f3",
-                "Commit": null,
-                "Path": "C:\\Users\\A181244\\OneDrive - ATOS\\Santosh\\Personal\\Training\\Python\\Secure-Release\\Sample_code\\dvpwa\\config\\dev.yaml"
-            },
-            "tool": "detect-secrets"
-        },
-        {
             "severity": "MEDIUM",
-            "file": "safety_scan_results.json",
-            "line": 42,
-            "secret": "58812f5c30cdccfc4de9db267bec2e36946aaedc",
+            "file": "sqli/README.rst",
+            "line": 232,
+            "secret": "5f4dcc3b5aa765d61d8327deb882cf99",
             "rule id": "high-entropy",
             "message": "High Entropy",
             "context": {
-                "42": "          \"commit\": \"58812f5c30cdccfc4de9db267bec2e36946aaedc\","
+                "232": "      5f4dcc3b5aa765d61d8327deb882cf99 | {j.doe,s.king} |     2"
             },
-            "id": "d8278c7b-e5d3-31f5-b093-632558c0ce98",
+            "id": "19ef0a3e-3040-3cba-9178-509abdc2f98b",
+            "tool": "TruffleHog3"
+        },
+        {
+            "severity": "MEDIUM",
+            "file": "README.rst",
+            "line": 234,
+            "secret": "17c4520f6cfd1ab53d8745e84681eb49",
+            "rule id": "high-entropy",
+            "message": "High Entropy",
+            "context": {
+                "234": "      17c4520f6cfd1ab53d8745e84681eb49 | {superadmin}   |     1"
+            },
+            "id": "5164b2f6-4b8e-39f5-85b4-e0e5df25e44a",
             "tool": "TruffleHog3"
         },
         {
@@ -336,6 +99,19 @@
                 "232": "      5f4dcc3b5aa765d61d8327deb882cf99 | {j.doe,s.king} |     2"
             },
             "id": "712056b2-cc46-3f0d-9ca0-5168b53a7881",
+            "tool": "TruffleHog3"
+        },
+        {
+            "severity": "MEDIUM",
+            "file": "sqli/README.rst",
+            "line": 234,
+            "secret": "17c4520f6cfd1ab53d8745e84681eb49",
+            "rule id": "high-entropy",
+            "message": "High Entropy",
+            "context": {
+                "234": "      17c4520f6cfd1ab53d8745e84681eb49 | {superadmin}   |     1"
+            },
+            "id": "18f59b00-d7c7-33b0-9166-ed04a6393a31",
             "tool": "TruffleHog3"
         },
         {
@@ -354,32 +130,6 @@
         {
             "severity": "MEDIUM",
             "file": "sqli/README.rst",
-            "line": 232,
-            "secret": "5f4dcc3b5aa765d61d8327deb882cf99",
-            "rule id": "high-entropy",
-            "message": "High Entropy",
-            "context": {
-                "232": "      5f4dcc3b5aa765d61d8327deb882cf99 | {j.doe,s.king} |     2"
-            },
-            "id": "19ef0a3e-3040-3cba-9178-509abdc2f98b",
-            "tool": "TruffleHog3"
-        },
-        {
-            "severity": "MEDIUM",
-            "file": "sqli/README.rst",
-            "line": 234,
-            "secret": "17c4520f6cfd1ab53d8745e84681eb49",
-            "rule id": "high-entropy",
-            "message": "High Entropy",
-            "context": {
-                "234": "      17c4520f6cfd1ab53d8745e84681eb49 | {superadmin}   |     1"
-            },
-            "id": "18f59b00-d7c7-33b0-9166-ed04a6393a31",
-            "tool": "TruffleHog3"
-        },
-        {
-            "severity": "MEDIUM",
-            "file": "sqli/README.rst",
             "line": 233,
             "secret": "1da0bac388e8e0409a83e121e1af6ef4",
             "rule id": "high-entropy",
@@ -388,19 +138,6 @@
                 "233": "      1da0bac388e8e0409a83e121e1af6ef4 | {p.parker}     |     1"
             },
             "id": "82895083-c970-32cf-b435-d6223f18a744",
-            "tool": "TruffleHog3"
-        },
-        {
-            "severity": "MEDIUM",
-            "file": "README.rst",
-            "line": 234,
-            "secret": "17c4520f6cfd1ab53d8745e84681eb49",
-            "rule id": "high-entropy",
-            "message": "High Entropy",
-            "context": {
-                "234": "      17c4520f6cfd1ab53d8745e84681eb49 | {superadmin}   |     1"
-            },
-            "id": "5164b2f6-4b8e-39f5-85b4-e0e5df25e44a",
             "tool": "TruffleHog3"
         }
     ],

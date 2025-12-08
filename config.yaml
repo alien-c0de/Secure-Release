@@ -3,20 +3,43 @@ Assessment_Project_Details:
   version: 1.0.1
   technology: Python
   description: 'Vulnerable Python Project '
+
 dependency_files:
   python:
   - requirements.txt
   - Pipfile
   - pyproject.toml
+
 technology: Python
+
 target_dirs:
 - C:\Users\A181244\OneDrive - ATOS\Santosh\Personal\Training\Python\Secure-Release\Sample_code\dvpwa
+
+# ============================================================
+# LOGGING CONFIGURATION
+# ============================================================
 logging:
-  level: INFO
-  to_file: true
-  log_file: ./logs/security.log
+  enabled: true                    # Set to false to disable all logging
+  level: INFO                      # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  log_dir: ./logs                  # Directory where log files will be stored
+  max_file_size_mb: 10            # Maximum size of each log file in MB
+  backup_count: 5                  # Number of backup log files to keep
+  
+  # Log format (you can customize this)
+  format: '%(asctime)s - %(name)s - %(levelname)s - %(funcName)s:%(lineno)d - %(message)s'
+  date_format: '%Y-%m-%d %H:%M:%S'
+  
+  # Module-specific log levels (optional - overrides global level)
+  modules:
+    dependency_checker: DEBUG      # More verbose for dependency scanning
+    secret_scanner: INFO
+    code_analyzer: INFO
+    html_report: WARNING           # Less verbose for reporting
+    json_report: WARNING
+
 api_specs:
 - ./api/openapi.yaml
+
 API_Scanner:
   base_url: http://demo.owasp-juice.shop/api/Challenges
   openapi_url: https://example.schemathesis.io/openapi.json
@@ -37,6 +60,7 @@ API_Scanner:
       body_template:
         email: test@example.com
         password: pass123
+
 policies:
   max_secrets: 1
   max_severity: HIGH
@@ -44,17 +68,21 @@ policies:
   - LOW
   - MEDIUM
   - HIGH
+
 tools:
   trivy: trivy
   dependency_check: C:/Users/A181244/OneDrive - ATOS/Santosh/Security/Tech/dependency-check/bin/dependency-check.bat
   zap_cli: zap-cli
+
 report_dir: ./Reports/output
+
 report:
   report_header: SECURE RELEASE
   report_title: SAST Report
   API_report: API Vulnerability Report
   report_file_name: SecRel
   report_footer: Secure Release Report. All Rights Reserved.
+
 tool_info:
   company_name: Alien Security
   tool_name: Secure Release
@@ -65,6 +93,7 @@ tool_info:
   github: https://github.com/Alien-C0de
   timestamp: '2024-04-24 00:00:00'
   owner_title: 'Developed by:'
+
 notify:
   email: false
   slack: false

@@ -5,7 +5,6 @@ from pathlib import Path
 import tempfile
 from colorama import Fore, Style
 
-
 def is_semgrep_available():
     """Check if semgrep is installed."""
     from shutil import which
@@ -73,7 +72,6 @@ async def scan(config):
 
     print(Fore.LIGHTGREEN_EX + Style.BRIGHT + f"[+] 📢 Static Code Analyzer found" + Fore.WHITE + Style.BRIGHT, len(results), Fore.LIGHTGREEN_EX + Style.BRIGHT + f"issues.", Fore.RESET)
     return results
-
 
 async def run_subprocess(cmd):
     CREATE_NO_WINDOW = 0x08000000  # Windows-specific flag

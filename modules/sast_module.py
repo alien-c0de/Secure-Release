@@ -176,8 +176,8 @@ def sast_page(cfg, config_path, result_card_fn, report_download_button_fn):
 
         col1, col2, col3 = st.columns(3)
         with col1:
-            result_card_fn("Dependency Scan", st.session_state.results["Dependency Scan"])
-        with col2:
             result_card_fn("Secret Scanner", st.session_state.results["Secret Scanner"])
-        with col3:
+        with col2:
             result_card_fn("Code Analyzer", st.session_state.results["Code Analyzer"])
+        with col3:
+            result_card_fn("Dependency Scan", st.session_state.results["Dependency Scan"])
